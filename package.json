@@ -6,15 +6,29 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "lint:fix": "eslint src/ --fix"
   },
   "dependencies": {
+    "@heroicons/react": "^1.0.6",
+    "autoprefixer": "^10.4.7",
+    "axios": "^0.27.2",
+    "framer-motion": "6.3.3",
     "next": "12.1.6",
+    "postcss": "^8.4.13",
     "react": "18.1.0",
-    "react-dom": "18.1.0"
+    "react-dom": "18.1.0",
+    "react-icons": "^4.3.1",
+    "tailwindcss": "^3.0.24",
+    "tailwindcss-transforms": "^2.2.0",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "eslint": "8.15.0",
-    "eslint-config-next": "12.1.6"
+    "eslint-config-next": "^12.1.6",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-prettier": "^4.0.0",
+    "prettier": "^2.6.2"
   }
 }
