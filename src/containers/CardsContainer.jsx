@@ -92,7 +92,7 @@ const CardsContainer = ()=>{
           <motion.div initial={{ rotate: 180, scale: 0, }}  variants={variantsModal} animate={ won ? "show" : "hidde"} className="modal m-auto md:max-w-3xl md:w-4/5 md:h-96 h-3/5 bg-[url('../assets/images/modal.png')] bg-cover border-4 border-rose-700">
             <div className='w-full h-full backdrop-brightness-75 backdrop-saturate-150 bg-white/50  flex justify-center items-center'>
               <div className='over-background w-11/12 h-5/6 bg-black/90 px-9  flex justify-center flex-col items-center'>
-                <span className='font-san text-xl lg:text-5xl pt-6 pb-8 w-11/12 text-center bg-white/90 rounded-md text-rose-700'>¡Nivel Completado!</span>
+                <span className='font-san text-xl md:text-3xl lg:text-5xl pt-6 pb-8 w-11/12 text-center bg-white/90 rounded-md text-rose-700'>¡Nivel Completado!</span>
                 <div className='options flex flex-wrap justify-between w-5/6 mt-12 text-md lg:text-lg'>
                   <button className='bg-white/60 hover:bg-white/80 active:bg-white/70 px-5 py-2 rounded-lg lg:mx-5 mb-7'>
                     <IconPrincipalMenu 
@@ -100,16 +100,16 @@ const CardsContainer = ()=>{
                     />
                   </button>
                   <button 
-                    className='bg-white/60 hover:bg-white/80 active:bg-white/70 px-5 py-2 rounded-lg lg:mx-5 mb-7'
+                    className='bg-white/60 hover:bg-white/80 active:bg-white/70 md:ml-6 px-5 py-2 rounded-lg lg:mx-5 mb-7'
                     onClick={()=> handleRepeat()} >
                     <IconReload 
                       className='text-green-700 text-2xl lg:text-2xl'
                     />
                   </button>
-                  <button className='bg-white/60 hover:bg-white/80 active:bg-white/70 px-5 py-2 rounded-lg mb-7 mx-auto'>
+                  <button className='bg-white/60 hover:bg-white/80 active:bg-white/70 px-5 py-2 rounded-lg mb-7 ml-auto mr-2'>
                     <span
                       className='text-pink-700 font-extrabold' >
-                      Sigiente Nivel
+                      Siguiente Nivel
                     </span>
                   </button>
                 </div>
