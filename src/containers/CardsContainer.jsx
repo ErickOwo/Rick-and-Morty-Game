@@ -7,7 +7,7 @@ import { BiRevision as IconReload } from 'react-icons/bi'
 
 const CardsContainer = ()=>{
   const { characters, turnedCard, turnedFalse, findedCards, tryData, setTryData } = useGetData();
-  const { hits, fails,moves, timeSeconds, timeMinutes, handleClicsCards, handleMoves, startHandler, newGame, openModal, setOpenModal ,won, setWon } = useStartGame();
+  const { hits, fails, moves, timeSeconds, timeMinutes, handleClicsCards, handleMoves, startHandler, newGame, openModal, setOpenModal ,won, setWon } = useStartGame();
 
   const variantsOverlay = {
     show: {
@@ -88,25 +88,25 @@ const CardsContainer = ()=>{
       </div> : null 
       }
       {
-        openModal ? <motion.div  initial={{ opacity: 0 }} variants={variantsOverlay} animate={ won ? "show" : "hidde"} className="modal-overlay w-screen h-screen bg-black/70 absolute top-0 left-0 flex">
-          <motion.div initial={{ rotate: 180, scale: 0, }}  variants={variantsModal} animate={ won ? "show" : "hidde"} className="modal m-auto md:max-w-3xl md:w-4/5 md:h-96 bg-[url('../assets/images/modal.png')] bg-cover border-4 border-rose-700">
+        openModal ? <motion.div  initial={{ opacity: 0 }} variants={variantsOverlay} animate={ won ? "show" : "hidde"} className="modal-overlay w-screen h-screen bg-black/70 fixed top-0 left-0 flex">
+          <motion.div initial={{ rotate: 180, scale: 0, }}  variants={variantsModal} animate={ won ? "show" : "hidde"} className="modal m-auto md:max-w-3xl md:w-4/5 md:h-96 h-3/5 bg-[url('../assets/images/modal.png')] bg-cover border-4 border-rose-700">
             <div className='w-full h-full backdrop-brightness-75 backdrop-saturate-150 bg-white/50  flex justify-center items-center'>
               <div className='over-background w-11/12 h-5/6 bg-black/90 px-9  flex justify-center flex-col items-center'>
-                <span className='font-san text-5xl pt-6 pb-8 w-11/12 text-center bg-white/90 rounded-md text-rose-700'>¡Nivel Completado!</span>
-                <div className='options flex flex-wrap justify-between w-5/6 mt-12 text-lg'>
-                  <button className='bg-white/60 hover:bg-white/80 active:bg-white/70 px-5 py-2 rounded-lg mx-5'>
+                <span className='font-san text-xl lg:text-5xl pt-6 pb-8 w-11/12 text-center bg-white/90 rounded-md text-rose-700'>¡Nivel Completado!</span>
+                <div className='options flex flex-wrap justify-between w-5/6 mt-12 text-md lg:text-lg'>
+                  <button className='bg-white/60 hover:bg-white/80 active:bg-white/70 px-5 py-2 rounded-lg lg:mx-5 mb-7'>
                     <IconPrincipalMenu 
-                      className='text-purple-900 text-2xl'
+                      className='text-purple-900 text-2xl lg:text-2xl'
                     />
                   </button>
                   <button 
-                    className='bg-white/60 hover:bg-white/80 active:bg-white/70 px-5 py-2 rounded-lg mx-5'
+                    className='bg-white/60 hover:bg-white/80 active:bg-white/70 px-5 py-2 rounded-lg lg:mx-5 mb-7'
                     onClick={()=> handleRepeat()} >
                     <IconReload 
-                      className='text-green-700 text-2xl'
+                      className='text-green-700 text-2xl lg:text-2xl'
                     />
                   </button>
-                  <button className='bg-white/60 hover:bg-white/80 active:bg-white/70 px-5 py-2 rounded-lg'>
+                  <button className='bg-white/60 hover:bg-white/80 active:bg-white/70 px-5 py-2 rounded-lg mb-7 mx-auto'>
                     <span
                       className='text-pink-700 font-extrabold' >
                       Sigiente Nivel
