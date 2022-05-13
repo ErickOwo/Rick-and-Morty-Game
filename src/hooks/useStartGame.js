@@ -14,6 +14,8 @@ const useStartGame = () =>{
   const [ fails, setFails ] = useState(0);
   const [ won, setWon ] = useState(false);
   const [ openModal, setOpenModal ] = useState(false);
+  const [ wonGame, setWonGame ] = useState(false);
+  const [ openFinallyModal, setOpenFinallyModal ] = useState(false);
   const [ intervalVar, setIntervalVar ] = useState(null);
   const router = useRouter();
   const { id: idRouter } = router.query;
@@ -28,10 +30,16 @@ const useStartGame = () =>{
         findedCards(id);
         setHits(++hits);
         if(hardMode == "true" ? hits == 20 : hits == 10){ 
-          setWon(true);
-          setOpenModal(true);
-          clearInterval(intervalVar);
-          if(level < parseInt(idRouter)){
+          if(idRouter == 41){
+            setWonGame(true);
+            setOpenFinallyModal(true);
+            clearInterval(intervalVar);
+          } else{
+            setWon(true);
+            setOpenModal(true);
+            clearInterval(intervalVar);
+          }
+          if(level < parseInt(idRouter) || !level){
             cookie.set('r&m-level', idRouter, {expires: 200});
             setLevel(parseInt(idRouter));
           }
@@ -76,6 +84,7 @@ const useStartGame = () =>{
     setHits(0);
     setFails(0);
     setWon(false);
+    setWonGame(false);
     clearInterval(intervalVar);
   }
 
@@ -93,6 +102,10 @@ const useStartGame = () =>{
     setWon,
     openModal,
     setOpenModal,
+    wonGame,
+    setWonGame,
+    openFinallyModal,
+    setOpenFinallyModal,
   }
 }
 

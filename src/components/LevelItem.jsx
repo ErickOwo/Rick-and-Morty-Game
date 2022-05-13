@@ -1,7 +1,7 @@
 
 const LevelItem = ({ children }) =>{
   return(
-    <div className="p-7">
+    <div className="w-16 h-16 bg-white ">
       { children }
     </div>
   );

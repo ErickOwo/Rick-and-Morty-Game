@@ -13,10 +13,10 @@ export default function Home() {
     setHardMode, } = useInterface();
   return (
     <>
-      <div className="container h-screen w-full min-w-none max-w-none min-h-none bg-[url('../assets/images/principal-background-1.jpg')] bg-[length:210%_100%] md:bg-[length:110%_100%] bg-center flex justify-center items-center select-none">
+      <div className="container h-screen w-full min-w-none max-w-none min-h-none bg-[url('../assets/images/principal-background.jpg')] bg-[length:210%_100%] md:bg-[length:110%_100%] bg-center flex justify-center items-center select-none">
         <div className="flex flex-col justify-center items-center h-4/6 md:h-fit bg-black/80 px-3 md:px-16 xl:px-32 relative">
           <button onClick={()=> setToggleMode(!toggleMode)} className='font-padauk text-lg m-3 py-1 px-4 bg-black/80 text-cyan-200 absolute top-0 left-0 border border-gray-900/80 hover:text-cyan-100 hover:bg-black/60 hover:border-gray-900/90'>
-            modo
+            Modo
           </button>
           { toggleMode ? <div className='bg-black/90 absolute flex flex-col top-0 left-0 z-30 ml-3 mt-[51px] border-l border-white'>
               <button onClick={()=>{

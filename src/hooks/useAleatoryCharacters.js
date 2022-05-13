@@ -1,9 +1,17 @@
 import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
 import jsCookie from "js-cookie";
+import rn from 'random-number';
 
 const useAleatoryCharacters = async (API, level) =>{
-  const createRandom = (inf, sup) => parseInt(Math.random() * sup + inf);
+  const createRandom = (inf, sup) => {
+    const options = {
+      min:  inf, 
+      max:  sup, 
+      integer: true
+    }
+    return rn(options);
+  };
   const hardMode = jsCookie.get('r&m-hard-mode');
   const aleatories = [];
   const characters = [];
