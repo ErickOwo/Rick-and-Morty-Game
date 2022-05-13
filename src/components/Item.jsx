@@ -35,7 +35,7 @@ const Item = ({ image, order, id, idCard, turned, turnedCard, turnedFalse, finde
     onClick={()=>handleClic()}
     >
       <motion.div 
-        className="front relative preserve-3d bg-[url('../assets/images/background.jpg')] bg-cover rounded-xl md:w-24 md:h-24 xl:w-28 xl:h-28 w-20 h-20 p-0 flex justify-center items-center cursor-pointer"
+        className="front relative preserve-3d bg-[url('../assets/images/background-card.jpg')] bg-cover rounded-xl md:w-24 md:h-24 xl:w-28 xl:h-28 w-20 h-20 p-0 flex justify-center items-center cursor-pointer"
         animate={!turned ? 'hidden' : 'flip'}
         variants={variants}  >
         <div className="back backface-hidden negative-rotate-y-180 md:w-24 md:h-24 xl:w-28 xl:h-28 w-20 h-20 p-0 flex justify-center items-center ">

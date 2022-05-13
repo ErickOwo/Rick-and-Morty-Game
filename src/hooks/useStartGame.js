@@ -1,16 +1,24 @@
 import { useState } from 'react';
+import cookie from 'js-cookie';
+import { useRouter } from 'next/router';
+import { useInterface } from './useInterface';
 
 const useStartGame = () =>{
+  const { hardMode } = useInterface();
   const [ moves, setMoves ] = useState(0);
   const [ start, setStart ] = useState(false);
   const [ timeSeconds, setTimeSeconds ] = useState(0);
   const [ timeMinutes, setTimeMinutes ] = useState(0);
   const [ cardsTurned, setCardsTurned ] = useState([]);
   const [ hits, setHits ] = useState(0);
-  const [ fails, setFails ] = useState(0)
+  const [ fails, setFails ] = useState(0);
   const [ won, setWon ] = useState(false);
   const [ openModal, setOpenModal ] = useState(false);
-  const [ intervalVar, setIntervalVar ] = useState(null)
+  const [ intervalVar, setIntervalVar ] = useState(null);
+  const router = useRouter();
+  const { id: idRouter } = router.query;
+  const { level, setLevel } = useInterface();
+  
 
   const handleClicsCards = (turnedFalse, findedCards, id, idCard) =>{
     setCardsTurned([...cardsTurned, {id, idCard}]);
@@ -19,10 +27,14 @@ const useStartGame = () =>{
       if(cardsTurned[0].id == cardsTurned[1].id && cardsTurned[0].idCard != cardsTurned[1].idCard){
         findedCards(id);
         setHits(++hits);
-        if(hits == 10){ 
+        if(hardMode == "true" ? hits == 20 : hits == 10){ 
           setWon(true);
           setOpenModal(true);
           clearInterval(intervalVar);
+          if(level < parseInt(idRouter)){
+            cookie.set('r&m-level', idRouter, {expires: 200});
+            setLevel(parseInt(idRouter));
+          }
         }
       } else {
         setFails(++fails);
@@ -35,14 +47,14 @@ const useStartGame = () =>{
     } 
   }
 
-  const handleMoves = () => setMoves(moves + 1);
+  const handleMoves = () => setMoves(++moves);
   const startHandler = () =>{
     const verifyTime = ()=>{
       if(timeSeconds != 59) setTimeSeconds(++timeSeconds) 
         else{
           setTimeMinutes(++timeMinutes);
           timeSeconds=0;
-          setTimeSeconds(0);
+          setTimeSeconds(timeSeconds);
       };
     }
     if(!start){
@@ -50,13 +62,12 @@ const useStartGame = () =>{
         verifyTime();
       }, 1000);
       setIntervalVar(intervalVar)
-      setStart(true);
       start = true;
+      setStart(start);
     }
   }
   
-  const newGame = (setTryData, tryData) =>{
-    setTryData(++tryData);
+  const newGame = () =>{
     setMoves(0);
     setStart(false);
     setTimeSeconds(0);

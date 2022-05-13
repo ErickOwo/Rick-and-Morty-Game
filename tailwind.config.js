@@ -28,7 +28,12 @@ module.exports = {
       ...colors
     },
     fontFamily: {
-      'Bang': ['Bangers', 'cursive',],
+      ebGaramond: "'EB Garamond', serif",
+      macondo: "'Macondo', cursive",
+      robotoFlex: "'Roboto Flex', sans-serif",
+      shadowsIntoLigth: "'Shadows Into Light', cursive",
+      indiFlower: "'Indie Flower', cursive",
+      padauk: "'Padauk', sans-serif",
     },
     extend: {
 

@@ -3,11 +3,35 @@ import Item from '@components/Item';
 import useStartGame from '@hooks/useStartGame';
 import { motion } from 'framer-motion';
 import { GiAbstract050 as IconPrincipalMenu } from 'react-icons/gi';
-import { BiRevision as IconReload } from 'react-icons/bi'
+import { BiRevision as IconReload } from 'react-icons/bi';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 const CardsContainer = ()=>{
-  const { characters, turnedCard, turnedFalse, findedCards, tryData, setTryData } = useGetData();
-  const { hits, fails, moves, timeSeconds, timeMinutes, handleClicsCards, handleMoves, startHandler, newGame, openModal, setOpenModal ,won, setWon } = useStartGame();
+  const { characters, 
+          turnedCard, 
+          turnedFalse, 
+          findedCards, 
+          tryData, 
+          setTryData,
+          winData,
+          setWinData, } = useGetData();
+
+  const { hits, 
+          fails, 
+          moves, 
+          timeSeconds, 
+          timeMinutes, 
+          handleClicsCards, 
+          handleMoves, 
+          startHandler, 
+          newGame, 
+          openModal, 
+          setOpenModal, 
+          won, } = useStartGame();
+
+  const router = useRouter();
+  const { id } = router.query;
 
   const variantsOverlay = {
     show: {
@@ -45,9 +69,17 @@ const CardsContainer = ()=>{
   }
 
   const handleRepeat = () =>{
-    setWon(false)
+    newGame();
+    setTryData(++tryData)
     setTimeout(()=>{
-      newGame(setTryData, tryData);
+      setOpenModal(false);
+    }, 2500);
+  }
+  const handleWin = () =>{
+    newGame();
+    setWinData(++winData);
+    setTryData(0);
+    setTimeout(()=>{
       setOpenModal(false);
     }, 2500);
   }
@@ -55,9 +87,15 @@ const CardsContainer = ()=>{
   return(
     <>
       {
-        characters?.length > 0 ? <div className="container bg-[url('../assets/images/fondo.jpg')] bg-[length:370%_140%] md:bg-[length:160%_140%] bg-bottom flex flex-col min-h-screen lg:w-full max-w-full justify-center items-center m-0">
-        <div className="cards-content flex flex-wrap  xl:gap-8 gap-4 justify-center bg-gradient-to-r from-lime-500/40 to-cyan-500/40 min-h-min md:max-w-screen-sm xl:max-w-screen-lg  rounded-xl md:p-6 py-6 px-2 m-4 select-none">
-          { characters?.map(character =>{
+        characters?.length > 0 ? <>
+        <div className="container bg-[url('../assets/images/background-game.jpg')] bg-[length:370%_140%] md:bg-[length:160%_140%] bg-bottom flex flex-col min-h-screen lg:w-full max-w-full justify-center items-center m-0">
+          <div className='cont-level select-none md:w-5/6 w-11/12 m-4 flex justify-center items-center bg-yellow-300/80 rounded-lg'>
+            <span className='text-4xl py-3 font-macondo tracking-[2px] font-black'>
+              Nivel {id}
+            </span>
+          </div>
+          <div className="cards-content flex flex-wrap xl:gap-8 gap-4 justify-center bg-gradient-to-r from-lime-500/40 to-cyan-500/40 min-h-min md:max-w-screen-sm xl:max-w-screen-lg rounded-xl md:p-6 py-6 px-2 m-4 select-none">
+            { characters?.map(character =>{
               return <Item 
               key={character.key}
               turned={character.turned} 
@@ -72,20 +110,34 @@ const CardsContainer = ()=>{
               handleMoves={handleMoves}
               startHandler={startHandler}  />
 
-          })}
-        </div>
-        <div className="panel text-white flex flex-col md:flex-row md:flex-wrap gap-4 w-4/5 py-6 px-4 my-4 md:py-4 text-xl justify-center md:justify-around items-center bg-black/60 rounded-l font-['Bang'] font-bold select-none" >
-           <div>Movimientos:  <span className="font-black">{moves}</span></div> 
-           <div><span className='text-lime-500'>Aciertos:</span> { hits }</div>
-           <div><span className='text-red-400'>Fallos:</span> { fails }</div>
-           <div className="text-center">{timeMinutes < 10 ? `0${timeMinutes}` : timeMinutes}:{timeSeconds < 10 ? `0${timeSeconds}` : timeSeconds}</div> 
+            })}
+          </div>
+          <div className="panel font-padauk text-white flex flex-col md:flex-row md:flex-wrap gap-4 w-4/5 py-6 px-4 my-4 md:py-4 text-xl justify-center md:justify-around items-center bg-black/60 rounded-l font-['Bang'] font-bold select-none" >
+           <div className='w-40 text-center md:text-left'>Movimientos:  <span className="font-black">{moves}</span></div> 
+           <div className='w-32 text-center md:text-left'><span className='text-lime-500'>Aciertos:</span> { hits }</div>
+           <div className='w-32 text-center md:text-left'><span className='text-red-400'>Fallos:</span> { fails }</div>
+           <div className="text-center w-24 text-center md:text-left">{timeMinutes < 10 ? `0${timeMinutes}` : timeMinutes}:{timeSeconds < 10 ? `0${timeSeconds}` : timeSeconds}</div> 
            <button 
-              className="font-['Bang'] font-bold bg-yellow-400 hover:bg-yellow-300 transition-colors  text-black rounded-l py-2 px-5 md:py-1"
-              onClick={ () => newGame(setTryData, tryData) } >
-                Juego Nuevo
-              </button> 
-        </div>
-      </div> : null 
+            className="font-indiFlower font-bold bg-yellow-400 hover:bg-yellow-300 transition-colors  text-black rounded-l py-2 px-5 md:py-1"
+            onClick={ () =>{ 
+              newGame();
+              setTryData(++tryData);
+            }} >
+              Juego Nuevo
+            </button> 
+            <Link href="/">
+              <button 
+              className="font-indiFlower font-bold bg-pink-600 hover:bg-pink-500 transition-colors  text-black rounded-l py-2 px-5 md:py-1"
+              onClick={ () =>{ 
+                newGame();
+                setTryData(++tryData);
+              }} >
+                Volver al Menu
+              </button>
+            </Link> 
+          </div>
+        </div> 
+        </> : null 
       }
       {
         openModal ? <motion.div  initial={{ opacity: 0 }} variants={variantsOverlay} animate={ won ? "show" : "hidde"} className="modal-overlay w-screen h-screen bg-black/70 fixed top-0 left-0 flex">
@@ -94,11 +146,13 @@ const CardsContainer = ()=>{
               <div className='over-background w-11/12 h-5/6 bg-black/90 px-9  flex justify-center flex-col items-center'>
                 <span className='font-san text-xl md:text-3xl lg:text-5xl pt-6 pb-8 w-11/12 text-center bg-white/90 rounded-md text-rose-700'>¡Nivel Completado!</span>
                 <div className='options flex flex-wrap justify-between w-5/6 mt-12 text-md lg:text-lg'>
-                  <button className='bg-white/60 hover:bg-white/80 active:bg-white/70 px-5 py-2 rounded-lg lg:mx-5 mb-7'>
-                    <IconPrincipalMenu 
-                      className='text-purple-900 text-2xl lg:text-2xl'
-                    />
-                  </button>
+                  <Link href='/'>
+                    <button className='bg-white/60 hover:bg-white/80 active:bg-white/70 px-5 py-2 rounded-lg lg:mx-5 mb-7'>
+                      <IconPrincipalMenu 
+                        className='text-purple-900 text-2xl lg:text-2xl'
+                      />
+                    </button>
+                  </Link>
                   <button 
                     className='bg-white/60 hover:bg-white/80 active:bg-white/70 md:ml-6 px-5 py-2 rounded-lg lg:mx-5 mb-7'
                     onClick={()=> handleRepeat()} >
@@ -106,12 +160,16 @@ const CardsContainer = ()=>{
                       className='text-green-700 text-2xl lg:text-2xl'
                     />
                   </button>
-                  <button className='bg-white/60 hover:bg-white/80 active:bg-white/70 px-5 py-2 rounded-lg mb-7 ml-auto mr-2'>
-                    <span
-                      className='text-pink-700 font-extrabold' >
-                      Siguiente Nivel
-                    </span>
+                  <Link href={`/levels/${parseInt(id) + 1}`}>
+                  <button 
+                    className='bg-white/60 hover:bg-white/80 active:bg-white/70 px-5 py-2 rounded-lg mb-7 ml-auto mr-2'
+                    onClick={()=> handleWin()} >
+                      <span
+                        className='text-pink-700 font-extrabold' >
+                        Siguiente Nivel
+                      </span>
                   </button>
+                  </Link>
                 </div>
               </div>
             </div>
