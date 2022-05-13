@@ -1,46 +1,44 @@
 import { useContext, useState, createContext, useEffect } from 'react';
 import cookie from 'js-cookie';
-import axios from 'axios';
 
 const interfaceContext = createContext();
-const API = process.env.NEXT_PUBLIC_API;
 
-export const ProviderInterface = ({ children }) =>{
+export const ProviderInterface = ({ children }) => {
   const interfaceValue = useProviderInterface();
-  return <interfaceContext.Provider value={interfaceValue}>{ children }</interfaceContext.Provider>;
+  return <interfaceContext.Provider value={interfaceValue}>{children}</interfaceContext.Provider>;
 };
 
-export const useInterface = () =>{
+export const useInterface = () => {
   return useContext(interfaceContext);
-}
+};
 
-const useProviderInterface = () =>{
-  const [ level, setLevel ] = useState(null);
-  const [ hardMode, setHardMode ] = useState(false);
-  const [ toggleMode, setToggleMode ] = useState(false);
-  const [ pages, setPages ] = useState(null);
+const useProviderInterface = () => {
+  const [level, setLevel] = useState(null);
+  const [hardMode, setHardMode] = useState(false);
+  const [toggleMode, setToggleMode] = useState(false);
+  const [modalCookies, setModalCookies] = useState(false);
+  const [acceptCookies, setAcceptCookies] = useState(false);
 
-  useEffect(()=>{
-    const fetch = async ()=>{
-      const response = await axios(API);
-      setPages(response.data.info.pages);
-    }
-
-    fetch();
-
+  useEffect(() => {
     level = cookie.get('r&m-level');
     setLevel(parseInt(level));
-    hardMode = cookie.get('r&m-hard-mode')
+    hardMode = cookie.get('r&m-hard-mode');
     setHardMode(hardMode);
-  },[])
+    acceptCookies = cookie.get('r&m-accept-cookies');
+    if (!acceptCookies) setModalCookies(true);
+    setAcceptCookies(acceptCookies);
+  }, []);
 
   return {
-    level, 
+    level,
     setLevel,
     hardMode,
-    setHardMode, 
+    setHardMode,
     toggleMode,
     setToggleMode,
-    pages,
-  }
-}
+    modalCookies,
+    setModalCookies,
+    acceptCookies,
+    setAcceptCookies,
+  };
+};

@@ -1,15 +1,15 @@
-import CardsContainer from "@containers/CardsContainer";
-import Head from "next/head";
+import CardsContainer from '@containers/CardsContainer';
+import Head from 'next/head';
 
-const Levels = ()=>{
-  return(
+const Levels = () => {
+  return (
     <>
       <Head>
         <link rel="icon" href="/portal.png" />
         <title>Rick and Morty Game</title>
-      </Head>  
+      </Head>
       <CardsContainer />
     </>
   );
-}
+};
 export default Levels;
