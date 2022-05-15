@@ -38,9 +38,9 @@ const useStartGame = () => {
             setOpenModal(true);
             clearInterval(intervalVar);
           }
-          if (level < parseInt(idRouter) || !level) {
-            cookie.set('r&m-level', idRouter, { expires: 200 });
-            setLevel(parseInt(idRouter));
+          if (level == parseInt(idRouter) || !level) {
+            cookie.set('r&m-level', parseInt(idRouter) + 1, { expires: 200 });
+            setLevel(parseInt(idRouter) + 1);
           }
         }
       } else {
@@ -50,7 +50,7 @@ const useStartGame = () => {
       setTimeout(() => {
         turnedFalse(...cardsTurned);
         cardsTurned = [];
-      }, 1700);
+      }, 1000);
     }
   };
 
